@@ -1,33 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DatingCard from "react-tinder-card";
 import "./DatingCards.css";
+import axios from './axios'
 
 const DatingCards = () => {
-  const [people, setPeople] = useState([
-    {
-      name: "Random Guy",
-      imgUrl:
-        "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    },
+  const [people, setPeople] = useState([])
 
-    {
-      name: "Another Guy",
-      imgUrl:
-        "https://images.unsplash.com/photo-1625019030820-e4ed970a6c95?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    },
-
-    {
-      name: "Random Girl",
-      imgUrl:
-        "https://images.unsplash.com/photo-1584634233587-311498e71a9c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    },
-
-    {
-      name: "Another Girl",
-      imgUrl:
-        "https://images.unsplash.com/photo-1570751057973-1b84c959ff86?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=747&q=80",
-    },
-  ]);
+  useEffect(() => {
+    async function fetchData() {
+      const req = await axios.get("/dating/cards");
+      setPeople(req.data)
+    }
+    fetchData();
+  }, [])
 
   const swiped = (direction, nameToDelete) => {
     console.log("receiving" + nameToDelete);
