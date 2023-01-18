@@ -1,4 +1,5 @@
-const uri = "mongodb+srv://root:root@cluster0.zsbjrbt.mongodb.net/?retryWrites=true&w=majority";
+//Mongo DB então basta criar um Cluster 
+const uri = " ";
 
 const options = {
     useNewUrlParser: true,
