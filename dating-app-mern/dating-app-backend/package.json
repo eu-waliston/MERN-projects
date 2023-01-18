@@ -2,9 +2,9 @@
   "name": "dating-app-backend",
   "version": "1.0.0",
   "description": "dating app backend",
-  "main": "server.js",
+  "main": "App.js",
   "scripts": {
-    "sart": "nodemon server.js"
+    "start": "nodemon App.js"
   },
   "keywords": [],
   "author": "Waliston Euripedes",
