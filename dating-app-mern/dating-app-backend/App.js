@@ -1,41 +1,24 @@
 const express = require("express");
-const mongoose = require("mongoose");
-const Cards = require("./dbCards");
+const Cors = require("cors");
+const { urlencoded } = require("express");
+
+const rooRouter = require('./src/routes/card');
 
 //App config
 const app = express();
 const port = process.env.PORT || 8001;
 
 //Middleware
+app.use(express.json());
+app.use(urlencoded({extended: true}));
+app.use(Cors());
 
 //DB Connection
 require('./config/database');
 
 //API Endpoints
-app.get("/", (req, res) => {
-  res.status(200).send(`App running at port ${port}`);
-});
+app.use('/', rooRouter);
 
-app.post("dating/cards", (req, res) => {
-  const dbCard = req.body;
-  Cards.create(dbCard, (err, data) => {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.status(201).send(data);
-    }
-  });
-});
-
-app.get("/dating/cards", (req, res) => {
-  Cards.find((err, data) => {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-        res.status(200).send(data)
-    }
-  });
-});
 
 //Lisnterner
 app.listen(port, () => {
