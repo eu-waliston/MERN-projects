@@ -1,30 +1,36 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import "./App.css";
 import Video from "./components/Video";
+import axios from "./components/axios";
+
 
 function App() {
+  const [videos, setVideos] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const res = await axios.get("/v2/posts")
+      setVideos(res.data)
+      return res
+    }
+    fetchData();
+  }, [])
+
   return (
     <div className="app">
       <div className="app__videos">
-        <Video
-          url="https://res.cloudinary.com/dlpmq2eal/video/upload/v1674213711/pinterestdownloader.com-1674213663.240808_ktzfzo.mp4"
-          channel="@Animes-Loff"
-          description="Short Anime Lofi Video Ghibi Studios's"
-          song="Lofi Relax"
-          likes={345}
-          shares={200}
-          messages={90}
-        />
-
-        <Video
-          url="https://res.cloudinary.com/dlpmq2eal/video/upload/v1674213711/pinterestdownloader.com-1674213663.240808_ktzfzo.mp4"
-          channel="@Animes-Loff"
-          description="Short Anime Lofi Video Ghibi Studios's"
-          song="Lofi Relax"
-          likes={345}
-          shares={200}
-          messages={90}
-        />
+        {videos.map(({url, channel, description, song, likes, shares, messages}) => (
+          <Video
+            key={url}
+            url={url}
+            channel={channel}
+            description={description}
+            song={song}
+            likes={likes}
+            shares={shares}
+            messages={messages}         
+          />
+        ))}
       </div>
     </div>
   );
