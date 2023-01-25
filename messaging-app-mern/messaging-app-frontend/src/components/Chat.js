@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 import "./Chat.css";
 
 import { Avatar, IconButton } from "@mui/material";
-import { AttachFile, MoreVert, SearchOutlined } from "@mui/icons-material";
+import {
+  AttachFile,
+  MoreVert,
+  SearchOutlined,
+  InsertEmoticon,
+} from "@mui/icons-material";
+import MicIcon from "@mui/icons-material/Mic";
 
 const Chat = () => {
   const [seed, setSeed] = useState("");
@@ -53,7 +59,17 @@ const Chat = () => {
           <span className="chat__timestamp">{new Date().toUTCString()}</span>
         </p>
       </div>
-      <div className="chat__footer"></div>
+      <div className="chat__footer">
+        <InsertEmoticon />
+        <form>
+          <input placeholder="Type a message" type="text" />
+
+          <button type="Submit">
+            Send a message
+          </button>
+        </form>
+        <MicIcon />
+      </div>
     </div>
   );
 };
