@@ -1,11 +1,11 @@
 import React from "react";
 import "./Login.css";
-import { auth, provider } from "../firebase";
+import { signInWithPopup } from "firebase/auth";
+import { auth } from "../firebase";
 
 const Login = () => {
-  const signIn = () => {
-    auth
-      .signInWithPopup(provider)
+  const signIn = async () => {
+    await signInWithPopup(auth)
       .then((result) => console.log(result))
       .catch((error) => alert(error.message));
   };
