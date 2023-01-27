@@ -15,7 +15,7 @@ router.post('/messages/new', (req,res) => {
     })
 })
 
-router.get('/messages/new', (req,res) => {
+router.get('/messages/sync', (req,res) => {
     Messages.find((err, data) => {
         if(err) res.status(420).send(err)
         else res.status(200).send(data)

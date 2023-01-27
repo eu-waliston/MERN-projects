@@ -16,4 +16,17 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
   </body>
+
+  <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+  <script>
+
+    var pusher = new Pusher('f6fcde04f278d879b96b', {
+      cluster: 'us2'
+    });
+
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function(data) {
+      alert(JSON.stringify(data));
+    });
+  </script>
 </html>

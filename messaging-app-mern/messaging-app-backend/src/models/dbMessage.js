@@ -12,24 +12,22 @@ const pusher = new Pusher({
 });
 
 const db = mongoose.connection;
-
 db.once("open", () => {
   console.log("DB Connected");
   const msgCollection = db.collection("messagingmessages");
-
   const changeStream = msgCollection.watch();
   changeStream.on("change", (change) => {
-    console.log(change);
-    if (change.operationType == "insert") {
+
+    if (change.operationType === "insert") {
       const messageDetails = change.fullDocument;
       pusher.trigger("messages", "inserted", {
         name: messageDetails.name,
         message: messageDetails.message,
         timestamp: messageDetails.timestamp,
-        received: messageDetails.received
+        received: messageDetails.received,
       });
     } else {
-        console.log("Errror trigerring Pusher");
+      console.log("Error trigerring Pusher");
     }
   });
 });
