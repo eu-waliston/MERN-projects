@@ -22,11 +22,11 @@ const Chat = ({ messages }) => {
 
   const sendMessage = async (e) => {
     e.preventDefault();
-    await axios.get("/messages/new", {
+    await axios.post("/messages/new", {
       message: input,
-      name: "waliston",
+      name: "Wal Wizard",
       timestamp: new Date().toUTCString(),
-      received: true,
+      received: false,
     });
     setInput("");
   };

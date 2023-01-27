@@ -2,8 +2,6 @@ const Express = require('express');
 const app = Express();
 const Cors = require('cors')
 
-
-
 const rootRouter = require('./src/routes/index.js');
 
 const port = process.env.PORT || 9000
