@@ -10,11 +10,11 @@ const Login = () => {
       <i class="bi bi-chat-square-text-fill"></i>
         <div className="login__text">
           <form id="fm">
-            <label className="lb">Username</label>
-            <input type={"text"} placeholder="type your username" className="ipt" />
+           <label className="lb">Username</label>
+            <input type="text" htmlFor="username" name="username" id="username" placeholder="type your username" className="ipt" required/>
             <br />
             <label className="lb">Password</label>
-            <input type={"text"} placeholder="type your Password" className="ipt" />
+            <input type="password" htmlFor="password" name="password" id="password" placeholder="type your Password" className="ipt" required/>
           </form>
         </div>
         <Button id="btn">

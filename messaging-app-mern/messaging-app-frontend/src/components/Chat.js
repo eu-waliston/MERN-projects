@@ -13,6 +13,7 @@ import {
 import MicIcon from "@mui/icons-material/Mic";
 
 const Chat = ({ messages }) => {
+
   const [seed, setSeed] = useState("");
   useEffect(() => {
     setSeed(Math.floor(Math.random() * 5000));
@@ -20,9 +21,9 @@ const Chat = ({ messages }) => {
 
   const [input, setInput] = useState("");
 
-  const sendMessage =  (e) => {
+  const sendMessage = async  (e) => {
     e.preventDefault();
-     axios.post("/messages/new", {
+     await axios.post("/messages/new", {
       message: input,
       name: "Wal Wizard",
       timestamp: new Date().toUTCString(),

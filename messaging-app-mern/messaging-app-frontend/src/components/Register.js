@@ -5,25 +5,35 @@ import "./Login.css";
 import axios from '../components/axios'
 
 const Register = () => {
-
-  const [username, setUsername] = useState(null);
-  const [password, setPassword] = useState(null);
-
-  function newUser() {
-    axios.post("/user/new")
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  
+  const newUser =  (e) => {
+     axios.post("/user/new", {
+      username: username,
+      password: password,
+    });
   }
-
+  const usernameEvent = (event) => {
+    setUsername(event.target.value);
+  };
+  const passwordEvent = (event) =>  {
+    setPassword(event.target.value);
+  }
+  
   return (
     <div className="login">
       <div className="login__container">
       <i className="bi bi-book"></i>
         <div className="login__text">
-          <form id="fm">
+          <form id="fm" type="POST">
             <label className="lb">Username</label>
-            <input type={"text"} name="username" id="username" placeholder="type your username" className="ipt" required/>
+            
+            <input type="text" htmlFor="username" name="username" id="username" placeholder="type your username" className="ipt"  onChange={usernameEvent} />
             <br />
             <label className="lb">Password</label>
-            <input type={"text"} name="password" id="password" placeholder="type your Password" className="ipt" required/>
+            
+            <input type="password"  htmlFor="password" name="password" id="password" placeholder="type your Password" className="ipt" onChange={passwordEvent}/>
           </form>
         </div>
         <Button id="btn">

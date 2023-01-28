@@ -12,15 +12,15 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 
 const App = () => {
-  const [messages, setMessages] = useState([]);
+const [messages, setMessages] = useState([]);
 
-  useEffect(() => {
+useEffect(() => {
     axios.get("/messages/sync").then((res) => {
       setMessages(res.data);
     });
-  }, [messages]);
+}, [messages]);
 
-  return (
+return (
     <div className="app">
       <div className="app__body">
         <Router>
