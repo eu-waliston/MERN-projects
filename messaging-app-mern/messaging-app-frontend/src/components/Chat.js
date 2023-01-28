@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Chat.css";
-
-import axios from "./axios";
+import axios from 'axios';
 
 import { Avatar, IconButton } from "@mui/material";
 import {
@@ -21,9 +20,9 @@ const Chat = ({ messages }) => {
 
   const [input, setInput] = useState("");
 
-  const sendMessage = async  (e) => {
+  const sendMessage = (e) => {
     e.preventDefault();
-     await axios.post("/messages/new", {
+    axios.post("http://localhost:9000/messages/new", {
       message: input,
       name: "Wal Wizard",
       timestamp: new Date().toUTCString(),

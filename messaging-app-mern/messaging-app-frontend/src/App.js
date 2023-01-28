@@ -6,7 +6,7 @@ import Chat from "./components/Chat";
 import Login from "./components/Login";
 import Register from "./components/Register";
 
-import axios from "./components/axios";
+import axios from 'axios';
 
 import { BrowserRouter as Router } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
@@ -15,7 +15,7 @@ const App = () => {
 const [messages, setMessages] = useState([]);
 
 useEffect(() => {
-    axios.get("/messages/sync").then((res) => {
+    axios.get("http://localhost:9000/messages/sync").then((res) => {
       setMessages(res.data);
     });
 }, [messages]);
