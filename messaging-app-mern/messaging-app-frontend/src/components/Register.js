@@ -2,12 +2,12 @@ import React from "react";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import "./Login.css";
-const Login = () => {
+const Register = () => {
 
   return (
     <div className="login">
       <div className="login__container">
-      <i class="bi bi-chat-square-text-fill"></i>
+      <i class="bi bi-book"></i>
         <div className="login__text">
           <form id="fm">
             <label className="lb">Username</label>
@@ -18,14 +18,14 @@ const Login = () => {
           </form>
         </div>
         <Button id="btn">
-            <Link to={"/app"} id="gsd">
-                Login
+            <Link to={"/register"} id="gsd">
+                Sign In
             </Link>
         </Button>
         <br />
-        <Link to={"/register"} id="gs">Register</Link>
+        <Link to={"/"} id="gs">Login</Link>
       </div>
     </div>
   );
 };
-export default Login;
+export default Register;

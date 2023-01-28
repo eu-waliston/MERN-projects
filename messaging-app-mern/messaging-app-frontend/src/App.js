@@ -4,11 +4,7 @@ import "./App.css";
 import Sidebar from "./components/Sidebar";
 import Chat from "./components/Chat";
 import Login from "./components/Login";
-import Signup from "./components/Signup";
-import Logar from "./components/Logar";
-
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from '../firebase';
+import Register from "./components/Register";
 
 import axios from "./components/axios";
 
@@ -17,7 +13,6 @@ import { Routes, Route } from "react-router-dom";
 
 const App = () => {
   const [messages, setMessages] = useState([]);
-  const [user, setUser] = useState(null);
 
   useEffect(() => {
     axios.get("/messages/sync").then((res) => {
@@ -25,44 +20,17 @@ const App = () => {
     });
   }, [messages]);
 
-  useEffect(()=>{
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-          // User is signed in, see docs for a list of available properties
-          // https://firebase.google.com/docs/reference/js/firebase.User
-          const uid = user.uid;
-          // ...
-          console.log("uid", uid)
-        } else {
-          // User is signed out
-          // ...
-          console.log("user is logged out")
-        }
-      });
-     
-}, [])
-
   return (
     <div className="app">
-      {!user ? (
-        <Login />
-      ) : (
-        <div className="app__body">
-          <Sidebar />
-          <Chat messages={messages} />
-        </div>
-      )}
-
-      <Router>
-        <div>
-          <section>
-            <Routes>
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/login" element={<Logar />} />
-            </Routes>
-          </section>
-        </div>
-      </Router>
+      <div className="app__body">
+        <Router>
+          <Routes>
+            <Route exact path="/" element={<Login />} />
+            <Route exact path="/register" element={<Register />} />
+            <Route exact path="/app" element={[<Sidebar />, <Chat messages={messages} />]} />
+          </Routes>
+        </Router>
+      </div>
     </div>
   );
 };

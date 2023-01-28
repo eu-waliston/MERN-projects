@@ -20,17 +20,43 @@
 .login__container > button {
   margin-top: 50px;
   text-transform: inherit !important;
-  background-color: #0a8d48 !important;
+  background-color: #e706a4 !important;
   color: white;
-  height: 50px !important;
-  width: 170px !important;
-  border-radius: 5px;
-  font-weight: bold;
-  text-transform: capitalize;
-  font-size: 16px;
 }
 
-.bi-whatsapp {
-    font-size: 70px;
-    color: #0a8d48 !important;
+.bi {
+    font-size: 80px;
+    color:#e706a4 !important;
+}
+
+#btn {
+    margin-left: 25px;
+    margin-right: 15px;
+    height: 50px;
+    width: 120px;
+    font-size: 17px;
+}
+
+#gs {
+    position: relative;
+    top: 50px;
+}
+
+#fm{
+    position: relative;
+    left: -20px;
+}
+
+#gsd {
+    color: #f8f8f8 !important;
+    text-decoration: none;
+}
+
+.ipt{
+    height: 40px;
+    margin-bottom: 20px;
+}
+
+.lb {
+    margin-right: 10px;
 }
