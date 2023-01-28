@@ -20,9 +20,9 @@ const Chat = ({ messages }) => {
 
   const [input, setInput] = useState("");
 
-  const sendMessage = async (e) => {
+  const sendMessage =  (e) => {
     e.preventDefault();
-    await axios.post("/messages/new", {
+     axios.post("/messages/new", {
       message: input,
       name: "Wal Wizard",
       timestamp: new Date().toUTCString(),
