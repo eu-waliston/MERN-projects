@@ -3,7 +3,12 @@ import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import "./Login.css";
 
+import { actionTypes } from "./reducer";
+import { useStateValue } from "./StateProvider";
+
 const Login = () => {
+  const [{}, dispatch] = useStateValue();
+
   const getUser = (e) => {
     let user = localStorage.getItem('username')
     console.log(localStorage.getItem('username'))
