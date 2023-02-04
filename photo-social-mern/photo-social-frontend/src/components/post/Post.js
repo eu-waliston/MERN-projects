@@ -1,24 +1,24 @@
 import React from "react";
 import './Post.css'
 
-import { Avatar } from '@mui/material'; 
+import { Avatar } from '@mui/material';
 
-const Post = () => {
+const Post = ({ username, caption, imageUrl }) => {
     return (
         <div className="post">
             <div className="post__header">
-                <Avatar 
+                <Avatar
                     className="post__avatar"
-                    alt="TWD"
+                    alt={username}
                     src={require("../assets/1.png")}
                 />
-                <h3>TDWP</h3>
+                <h3>{username}</h3>
             </div>
             <img className="post__image"
-                src="https://www.techlifediary.com/wp-content/uploads/2020/06/react-js.png" alt="React"
+                src={imageUrl} alt="React"
             />
             <h4 className="post__text">
-                <strong>thewebdev</strong>&#x1F525;Build a MEssaging app with MERN (MongoDB, Express, React JS, Node JS)&#x1F525;
+                <strong>{username}</strong>{caption}
             </h4>
         </div>
     )
