@@ -1,10 +1,19 @@
 import React from "react";
 import './Post.css'
 
+import { Avatar } from '@mui/material'; 
+
 const Post = () => {
     return (
         <div className="post">
-            <h3>TWD</h3>
+            <div className="post__header">
+                <Avatar 
+                    className="post__avatar"
+                    alt="TWD"
+                    src={require("../assets/1.png")}
+                />
+                <h3>TDWP</h3>
+            </div>
             <img className="post__image"
                 src="https://www.techlifediary.com/wp-content/uploads/2020/06/react-js.png" alt="React"
             />
