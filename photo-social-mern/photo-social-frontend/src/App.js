@@ -6,7 +6,7 @@ import Modal from '@mui/material/Modal';
 import { Input, Button } from '@mui/material';
 
 import { auth } from './firebase';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 import Post from './components/post/Post';
 
@@ -65,9 +65,19 @@ function App() {
   const signUp = async (e) => {
     e.preventDefault();
 
-    await auth.createUserWithEmailAndPassword(email, password).then(authUser => authUser.user.updateProfile({
-      displayName: username
-    })).catch(error => alert(error.message))
+    try {
+
+      const {user} = await createUserWithEmailAndPassword(auth, email, password)
+
+      console.log(`User ${user.uid} created`)
+
+      await updateProfile(user, {
+        displayName: username
+      })
+      console.log('User Profile Update');
+    } catch (error) {
+      console.log(error);
+    }
     setOpen(false);
   }
 
@@ -130,11 +140,7 @@ function App() {
       </div>
 
 
-      {
-        user ?
-        <Button onClick={() => auth.signOut()}>Logout</Button>
-        :
-        <Button onClick={() => setOpen(true)}></Button>
+      {user ? <Button onClick={() => auth.signOut()}>Logout</Button> : <Button onClick={() => setOpen(true)}>Sign Up</Button>
       }
 
       {posts.map(post => (
