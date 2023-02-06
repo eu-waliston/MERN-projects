@@ -6,7 +6,7 @@ import Modal from '@mui/material/Modal';
 import { Input, Button } from '@mui/material';
 
 import { auth } from './firebase';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 import Post from './components/post/Post';
 
@@ -44,6 +44,7 @@ function App() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [openSignIn, setOpenSignIn] = useState(false);
 
   /*Auth Area*/
   const [user, setUser] = useState(null);
@@ -67,7 +68,7 @@ function App() {
 
     try {
 
-      const {user} = await createUserWithEmailAndPassword(auth, email, password)
+      const { user } = await createUserWithEmailAndPassword(auth, email, password)
 
       console.log(`User ${user.uid} created`)
 
@@ -81,6 +82,15 @@ function App() {
     setOpen(false);
   }
 
+  const signIn = async (e) => {
+    e.preventDefault();
+    try {
+      signInWithEmailAndPassword(email, password)
+    } catch (err) {
+      console.log(err);
+    }
+    setOpenSignIn(false);
+  }
 
   /*Posts Area */
   const [posts, setPosts] = useState([
@@ -135,13 +145,50 @@ function App() {
         </div>
       </Modal>
 
+      <Modal open={openSignIn} onClose={() => setOpenSignIn(false)}>
+
+        <div style={modalStyle} className={classes.root}>
+          <form className='app_signup'>
+            <center>
+              <img src={require("./components/assets/logo.png")} className="app__headerImage" alt='Header' />
+            </center>
+
+            <Input
+              placeholder='email'
+              type="text"
+              value={email}
+              onchange={(e) => setEmail(e.target.value)}
+            />
+
+            <Input
+              placeholder='password'
+              type='password'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <Button type='submit' onClick={signIn}>
+              Sign In
+            </Button>
+          </form>
+        </div>
+
+      </Modal>
+
       <div className='app__header'>
         <img src={require("./components/assets/logo.png")} alt="Header" className="app__headerImage" />
       </div>
 
-
-      {user ? <Button onClick={() => auth.signOut()}>Logout</Button> : <Button onClick={() => setOpen(true)}>Sign Up</Button>
+      {user ? <Button onClick={() =>
+        auth.signOut()}>Logout</Button> : (
+        <div className="app__loginContainer">
+          <Button onClick={() =>
+            setOpenSignIn(true)}>Sign In</Button>
+          <Button onClick={() => setOpen(true)}>Sign
+            Up</Button>
+        </div>)
       }
+
 
       {posts.map(post => (
         <Post
