@@ -1,12 +1,25 @@
-.app {
+.App {
+    display: grid;
+    place-items: center;
     background-color: #fafafa;
+    overflow-x: hidden;
 }
 
 .app__header {
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    width: 100%;
     background-color: #ffffff;
     padding: 20px;
     border-bottom: 1px solid #d3d3d3;
     object-fit: contain;
+}
+
+.app__notLogin {
+    margin-bottom: 20px;
 }
 
 .app__headerImage {
@@ -22,4 +35,13 @@
 
 .app__headerImahe {
     width: 50px;
+}
+
+.app__loginContainer {
+    position: relative;
+    margin-right: 5%;
+}
+
+.app__posts {
+    padding: 20px;
 }
