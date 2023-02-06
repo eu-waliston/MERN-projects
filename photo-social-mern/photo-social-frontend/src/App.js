@@ -14,17 +14,17 @@ function getModalStyle() {
   return {
     top: `${top}%`,
     left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`
+    transform: `translate(-${top}%, -${left}%)`,
   };
 }
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    poistion: 'absolute',
+    position: 'absolute',
     width: 400,
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
-    boxShadow: theme.shasows[5],
+    boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
 }));
@@ -33,7 +33,7 @@ function App() {
 
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
 
   const [posts, setPosts] = useState([
     {
@@ -51,10 +51,10 @@ function App() {
   return (
     <div className="App">
       <Modal open={open} onClose={() => setOpen(false)}>
-        <div style={modalStyle} className={classes.paper}>
+        <div style={modalStyle} className=
+          {classes.paper}>
           <h2>Modal Code</h2>
         </div>
-
       </Modal>
 
 
