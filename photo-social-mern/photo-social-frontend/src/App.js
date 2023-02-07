@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
+import axios from 'axios';
+
 import { makeStyles } from '@mui/styles';
 import Modal from '@mui/material/Modal';
 import { Input, Button } from '@mui/material';
@@ -34,6 +36,15 @@ const useStyles = makeStyles({
 })
 
 function App() {
+  /* Axios Area */
+  const fetchPosts = async () => {
+    await axios.get("http://localhost:9000/sync").then(response => setPosts(response.data))
+  }
+
+  useEffect(() => {
+    fetchPosts()
+  }, [])
+
 
   /* Styles Area */
   const classes = useStyles();
@@ -194,9 +205,10 @@ function App() {
       <div className='app__posts'>
         {posts.map(post => (
           <Post
-            username={post.username}
+            key={post._id}
+            username={post.user}
             caption={post.caption}
-            imageUrl={post.imageUrl}
+            imageUrl={post.image}
           />
         ))}
       </div>

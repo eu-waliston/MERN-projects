@@ -1,24 +1,61 @@
 import React, { useState } from "react";
 import './ImageUpload.css';
 
-const ImageUpload = ({username}) => {
+import { storage } from '../../firebase';
+import { ref } from "firebase/storage";
+
+import axios from 'axios';
+
+const ImageUpload = ({ username }) => {
+    const [url, setUrl] = useState("");
     const [image, setImage] = useState(null)
     const [progress, setProgress] = useState(0)
     const [caption, setCaption] = useState('')
 
     const handleChange = (e) => {
-        if(e.target.files[0]) {
+        if (e.target.files[0]) {
             setImage(e.target.files[0])
         }
     }
 
-    const handleUpload = () => {};
+    const handleUpload = () => {
+
+        const uploadTask = ref(storage, `images/${image.name}`);
+
+        // const uploadTask = storage.ref(`images/${image.name}`).put(image);
+        uploadTask.on(
+            "state_changed", (snapshot) => {
+
+                const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+                setProgress(progress);
+
+            },
+
+            (error) => {
+                console.log(error);
+            },
+
+            function async ()   {
+                storage.ref("images").child(image.name).getDownloadURL().then((url) => {
+                    setUrl(url); axios.post('http://localhost:/upload', {
+                        caption: caption,
+                        user: username,
+                        image: url
+                    })
+
+                    setProgress(0);
+                    setCaption("");
+                    setImage(null);
+                });
+            }
+        );
+    };
 
     return (
         <div className="imageUpload">
-            <progress className="imageUpload__progress" value={progress} max="100"/>
+            <progress className="imageUpload__progress" value={progress} max="100" />
 
-            <input 
+            <input
                 type={"text"}
                 placeholder={"Enter a caption..."}
                 className={"imageUpload__input"}
@@ -26,13 +63,13 @@ const ImageUpload = ({username}) => {
                 onChange={e => setCaption(e.target.value)}
             />
 
-            <input 
-               className={"imageUpload__file"}
-               type={"file"}
-               onChange={handleChange} 
+            <input
+                className={"imageUpload__file"}
+                type={"file"}
+                onChange={handleChange}
             />
 
-            <button 
+            <button
                 className="imageUpload__button"
                 onClick={handleUpload}
             >
