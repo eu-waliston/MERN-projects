@@ -22,31 +22,33 @@ const ImageUpload = ({ username }) => {
 
         const uploadTask = ref(storage, `images/${image.name}`);
 
-        // const uploadTask = storage.ref(`images/${image.name}`).put(image);
         uploadTask.on(
-            "state_changed", (snapshot) => {
-
-                const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+            "state_changed",
+            (snapshot) => {
+                const progress = Math.round(
+                    (snapshot.bytesTransferred /
+                        snapshot.totalBytes) * 100
+                );
                 setProgress(progress);
-
             },
-
             (error) => {
                 console.log(error);
             },
-
-            function async ()   {
-                storage.ref("images").child(image.name).getDownloadURL().then((url) => {
-                    setUrl(url); axios.post('http://localhost:/upload', {
-                        caption: caption,
-                        user: username,
-                        image: url
-                    })
-
-                    setProgress(0);
-                    setCaption("");
-                    setImage(null);
-                });
+            () => {
+                storage
+                    .ref("images")
+                    .child(image.name)
+                    .getDownloadURL()
+                    .then((url) => {
+                        setUrl(url); axios.post('http://localhost:9000/upload', {
+                            caption: caption,
+                            user: username,
+                            image: url
+                        })
+                        setProgress(0);
+                        setCaption("");
+                        setImage(null);
+                    });
             }
         );
     };
