@@ -19,7 +19,7 @@ const Header = () => {
     return (
         <HeaderWrapper>
             <HeaderLeft>
-                <img src={require("./images/logo.png")} alt="Popular" />
+                <img src="https://clipartcraft.com/images/soul-eater-logo-black-star-5.png" alt="Popular" />
             </HeaderLeft>
 
             <HeaderInput>
