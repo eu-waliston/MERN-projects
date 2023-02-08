@@ -3,11 +3,14 @@ import './App.css';
 
 import styled from 'styled-components';
 
+/* COMPONENTS */
+import Header from './components/Header';
+
 function App() {
   return (
     <div className="App">
       <AppWrapper>
-        <h1>Popular Social Network MERN</h1>
+        <Header />
       </AppWrapper>
     </div>
   );
