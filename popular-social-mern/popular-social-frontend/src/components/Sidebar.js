@@ -16,6 +16,7 @@ const Sidebar = () => {
     return (
         <SidebarWrapper>
             <SidebarRow src="https://clipartcraft.com/images/soul-eater-logo-black-star-5.png" title="WeSantos" />
+            <SidebarRow  Icon={ LocalHospitalIcon} title="COVID-19 Information"/>
             <SidebarRow Icon={EmojiFlagsIcon} title="Pages" />
             <SidebarRow Icon={PeopleIcon} title="Friends" />
             <SidebarRow Icon={ChatIcon} title="Messager" />
