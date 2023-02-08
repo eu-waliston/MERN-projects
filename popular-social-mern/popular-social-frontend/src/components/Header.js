@@ -64,10 +64,6 @@ const Header = () => {
                 </IconButton>
 
                 <IconButton>
-                    <NotificarionActiveIcon />
-                </IconButton>
-
-                <IconButton>
                     <ExpandMoreIcon />
                 </IconButton>
             </HeaderRight>
