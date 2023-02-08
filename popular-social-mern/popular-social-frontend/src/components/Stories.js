@@ -2,7 +2,7 @@ import React from "react";
 
 import Story from './Story';
 
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const Stories = () => {
     return (
@@ -20,7 +20,7 @@ const Stories = () => {
             />
 
             <Story
-                image="http://1.bp.blogspot.com/-XnulChrGc2E/T_CrLWK4CZI/AAAAAAAACVc/fdVFU9RDO18/s1600/Cachorro_Mega_Wallpapers_HD+(5).jpg"
+                image="https://i.ytimg.com/vi/C9oKvpTAQhA/maxresdefault.jpg"
                 profileSrc="https://i.pinimg.com/originals/5b/d5/8d/5bd58d6ccb4fb9e7154a92f52add7aa4.jpg"
                 title="Meno"
             />
