@@ -7,9 +7,13 @@ import { GoogleAuthProvider } from "firebase/auth";
 import { Button } from '@material-ui/core';
 import { auth } from '../firebase'
 
+import { useStateValue } from '../StateProvider';
+import { actionType } from '../Reducer';
+
 const provider = new GoogleAuthProvider();
 
 const Login = () => {
+    const [{}, dispatch] = useStateValue();
     const signIn = async () => {
    
          signInWithPopup(auth, provider)
@@ -17,6 +21,12 @@ const Login = () => {
                 const credential = GoogleAuthProvider.credentialFromResult(result);
                 const token = credential.accessToken;
                 const user = result.user;
+
+                console.log(result);
+                dispatch({
+                    type: actionType.SET_USER,
+                    user: result.user
+                })
             })
             .catch((error) => {
                 const errorCode = error.code;

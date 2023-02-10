@@ -9,8 +9,10 @@ import Feed from './components/Feed';
 import Widget from './components/Widget';
 import Login from './components/Login';
 
+import { useStateValue } from './StateProvider';
+
 function App() {
-  const [user, setUser] = React.useState(null);
+  const [{user}, dispatch] = useStateValue();
 
   return (
     <div className="App">

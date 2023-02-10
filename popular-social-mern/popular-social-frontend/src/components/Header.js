@@ -14,8 +14,11 @@ import ForumIcon from "@material-ui/icons/Forum";
 import NotificarionActiveIcon from "@material-ui/icons/NotificationsActive";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
+import { useStateValue } from "../StateProvider";
 
 const Header = () => {
+    const [{user}, dispatch] = useStateValue();
+
     return (
         <HeaderWrapper>
             <HeaderLeft>
@@ -47,8 +50,8 @@ const Header = () => {
 
             <HeaderRight>
                 <div className="header__info">
-                    <Avatar src="https://clipartcraft.com/images/soul-eater-logo-black-star-5.png" />
-                    <h4>WeSantos</h4>
+                    <Avatar src={user.photoURL} />
+                    <h4>{user.displayName}</h4>
                 </div>
 
                 <IconButton>

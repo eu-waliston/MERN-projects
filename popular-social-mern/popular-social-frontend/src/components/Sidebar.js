@@ -10,12 +10,17 @@ import StorefrontIcon from "@material-ui/icons/Storefront";
 import VideoLibraryIcon from "@material-ui/icons/VideoLibrary";
 import ExpandMoreOutlined from "@material-ui/icons/ExpandMoreOutlined";
 
+import { useStateValue } from '../StateProvider'
+
 import styled from "styled-components";
 
 const Sidebar = () => {
+    const [{ user }, dispatch] = useStateValue()
+
     return (
         <SidebarWrapper>
-            <SidebarRow src="https://clipartcraft.com/images/soul-eater-logo-black-star-5.png" title="WeSantos" />
+            <SidebarRow src={user.photoURL} title={user.displayName} />
+            
             <SidebarRow  Icon={ LocalHospitalIcon} title="COVID-19 Information"/>
             <SidebarRow Icon={EmojiFlagsIcon} title="Pages" />
             <SidebarRow Icon={PeopleIcon} title="Friends" />
