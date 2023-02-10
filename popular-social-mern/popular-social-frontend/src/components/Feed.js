@@ -4,28 +4,41 @@ import Stories from './Stories';
 import Messenger from './Messenger'
 import Post from './Post';
 
+import axios from 'axios';
+
 import styled from 'styled-components';
 
 const Feed = () => {
+    const [postData, setPostData] = React.useState([])
+    const syncFeed = () => {
+        axios.get('http://localhost:9000/posts')
+            .then(res => {
+                console.log(res.data);
+                setPostData(res.data)
+            })
+    }
+
+    React.useEffect(() => {
+        syncFeed()
+    }, [])
+
+
+
     return (
         <FeedWrapper>
             <Stories />
             < Messenger />
-            <Post
-                profilePic="https://pngimg.com/uploads/anime_girl/anime_girl_PNG96.png"
-                timestamp="1609512232424"
-                imgName="https://s2.best-wallpaper.net/wallpaper/3840x2160/1901/Anime-girl-rose-thorns_3840x2160.jpg"
-                username="Rose Thorns"
-                message="I'm in love with this pic 🔥"
-            />
-
-            <Post
-                profilePic="https://pngimg.com/uploads/anime_girl/anime_girl_PNG75.png"
-                timestamp="1509512232424"
-                imgName="https://www.yummytabs.com/assets/anime/backgrounds/default.jpg"
-                username="Yumy Tabs"
-                message="I'm so excited with this season 😍😍😍"
-            />
+            {
+                postData.map(entry => (
+                    <Post 
+                        profilePic={entry.avatar}
+                        message={entry.text}
+                        timestamp={entry.timestamp}
+                        imgName={entry.imgName}
+                        username={entry.user}
+                    />
+                ))
+            }
         </FeedWrapper>
     )
 }

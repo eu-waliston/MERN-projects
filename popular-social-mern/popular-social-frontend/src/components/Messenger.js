@@ -6,22 +6,57 @@ import PhotoLibraryIcon from "@material-ui/icons/PhotoLibrary";
 import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 
 import { useStateValue } from '../StateProvider';
-
 import styled from "styled-components";
+import axios from 'axios';
 
 const Messenger = () => {
     const [input, setInput] = useState('');
-    const [image, setimage] = useState(null);
+    const [image, setImage] = useState(null);
     const [{ user }, dispatch] = useStateValue()
 
     const handleChange = (e) => {
         if (e.traget.value[0]) {
-            setimage(e.target.files[0])
+            setImage(e.target.files[0])
         }
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (image) {
+            const imgForm = new FormData()
+            imgForm.append('file', image, image.name)
+            axios.post("http://localhost:9000/upload/image", imgForm, {
+                headers: {
+                    'accept': 'application/json',
+                    'Accept-Language': 'en-Us, en; q=0.0',
+                    'Content-Type': `multipart/form-data;boundary=${imgForm._boundary}`
+                }
+            }).then(res => {
+                const postData = {
+                    text: input,
+                    imgName: res.data.filename,
+                    user: user.displayName,
+                    avatar: user.photoURL,
+                    timestamp: Date.now()
+                }
+                savePost(postData)
+            })
+        } else {
+            const postData = {
+                text: input,
+                user: user.displayName,
+                avatar: user.photoURL,
+                timestamp: Date.now()
+            }
+            savePost(postData)
+        }
+        setInput('')
+        setImage(null)
+    }
+    const savePost = async postData => {
+        await axios.post("http://localhost:9000/upload/post").then(res => {
+            console.log(res);
+        })
     }
 
     return (
@@ -51,17 +86,17 @@ const Messenger = () => {
             <MessengerBottom>
 
                 <div className="messenger__option">
-                    <VideocamIcon style={{color: 'red'}} />
+                    <VideocamIcon style={{ color: 'red' }} />
                     <h3>Live Video</h3>
                 </div>
 
                 <div className="messenger__option">
-                    <PhotoLibraryIcon style={{color: 'green'}}/>
+                    <PhotoLibraryIcon style={{ color: 'green' }} />
                     <h3>Photo/Video</h3>
                 </div>
 
                 <div className="messenger__option">
-                    <InsertEmoticonIcon style={{ color: 'orange'}} />
+                    <InsertEmoticonIcon style={{ color: 'orange' }} />
                     <h3>Feeling/Activity</h3>
                 </div>
             </MessengerBottom>
@@ -69,7 +104,7 @@ const Messenger = () => {
     )
 }
 
-const MessangerWrapper = styled.div `
+const MessangerWrapper = styled.div`
     display: flex;
     margin-top:30px;
     flex-direction: column;
@@ -79,7 +114,7 @@ const MessangerWrapper = styled.div `
     width: 100%;
 `
 
-const MessangerTop = styled.div `
+const MessangerTop = styled.div`
     display: flex;
     border-bottom: 1px solid #eff2f5;
     padding: 15px;
@@ -107,7 +142,7 @@ const MessangerTop = styled.div `
         }
     }
 `
-const MessengerBottom = styled.div `
+const MessengerBottom = styled.div`
     display: flex;
     justify-content: space-evenly;
     .messenger__option {
