@@ -7,22 +7,39 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Feed from './components/Feed';
 import Widget from './components/Widget';
+import Login from './components/Login';
 
 function App() {
+  const [user, setUser] = React.useState(null);
+
   return (
     <div className="App">
+
       <AppWrapper>
-        <Header />
-        <div className='app__body'>
-          <Sidebar />
-          <Feed />
-          <Widget />
-        </div>
+        {
+          user ?
+            (
+              <>
+                <Header />
+                <div className='app__body'>
+                  <Sidebar />
+                  <Feed />
+                  <Widget />
+                </div>
+              </>
+            )
+            :
+            (
+              <Login />
+            )
+        }
       </AppWrapper>
+
     </div>
   );
 }
-const AppWrapper = styled.div `
+
+const AppWrapper = styled.div`
   background-color: #f1f2f5;
   .app__body {
     display: flex;
